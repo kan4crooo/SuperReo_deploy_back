@@ -1,7 +1,8 @@
 const { Router }= require("express");
 const {allProducts, findById, findProduct}= require("../controllers/getProducts.js");
 const  createProduct  = require("../controllers/createProduct.js");
-const deleteProduct = require("../controllers/deleteProduct.js")
+const deleteProduct = require("../controllers/deleteProduct.js");
+const updateProducts = require("../controllers/updateProduct.js");
 const productRoutes= Router();
 
 productRoutes.get("/", async(req, res)=>{
@@ -38,6 +39,17 @@ productRoutes.delete("/:id", async(req, res)=>{
         const {id}= req.params;
         await deleteProduct(id);
         res.status(201).send({status:"the product was deleted successfully"})
+    } catch (error) {
+        res.status(400).send(error.message)
+    }
+})
+
+productRoutes.put("/:id", async(req, res)=>{
+    try {
+        const {id}= req.params;
+        const data= req.body;
+        await updateProducts(id, data)
+        res.status(201).send({status: "The product was update successfully"})
     } catch (error) {
         res.status(400).send(error.message)
     }

@@ -1,19 +1,7 @@
 const { Router } = require('express');
-const Product = require("../models/products_models")
+const productRoutes= require("./productRoutes")
 
 const router = Router();
-
-
-router.get("/", async (req, res)=>{
-    try {
-        const productos = await Product.find();
-        console.log(productos);
-        res.send(productos)
-        
-    } catch (error) {
-        console.log(error);
-    }
-})
-
+router.use("/products", productRoutes)
 
 module.exports = router;

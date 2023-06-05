@@ -1,5 +1,5 @@
 const { Router }= require("express");
-const {allProducts, findById, findProduct}= require("../controllers/getProducts.js");
+const {allProducts, findById, findProduct, findByCategory}= require("../controllers/getProducts.js");
 const  createProduct  = require("../controllers/createProduct.js");
 const deleteProduct = require("../controllers/deleteProduct.js");
 const updateProducts = require("../controllers/updateProduct.js");
@@ -21,6 +21,16 @@ productRoutes.get("/:id", async(req, res)=>{
     const {id}= req.params;
     try {
         return res.status(201).send(await findById(id))
+    } catch (error) {
+        res.status(404).send(error.message)
+    }
+})
+
+productRoutes.get("/category/:category", async(req, res)=>{
+    const {category}= req.params;
+    try {
+        const result= await findByCategory(category)
+        res.status(201).send(result)
     } catch (error) {
         res.status(404).send(error.message)
     }

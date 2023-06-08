@@ -20,6 +20,14 @@ const productosSchema= new Schema(
         category:{
             type:Array,
             required: true,
+        },
+        stock:{
+            type:Number,
+            required: true,
+        },
+        isActive:{
+            type:Boolean,
+            default: true,
         }
 });
 

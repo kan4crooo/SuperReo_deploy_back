@@ -8,6 +8,7 @@ const updateProducts= async(id, data)=>{
     product.image= data.image;
     product.brand= data.brand;
     product.category= data.category;
+    product.stock= data.stock;
     return await product.save().catch(e=>console.log(e))
 }
 

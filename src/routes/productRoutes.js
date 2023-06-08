@@ -36,13 +36,13 @@ productRoutes.get("/category/:category", async(req, res)=>{
     }
 })
 
-productRoutes.post("/", async(req, res)=>{
-    try {
-        res.status(201).send(await createProduct(req.body))
-    } catch (error) {
-        res.status(400).send(error.message)
-    }
-})
+// productRoutes.post("/", async(req, res)=>{
+//     try {
+//         res.status(201).send(await createProduct(req.body))
+//     } catch (error) {
+//         res.status(400).send(error.message)
+//     }
+// })
 
 productRoutes.delete("/:id", async(req, res)=>{
     try {
@@ -65,5 +65,5 @@ productRoutes.put("/:id", async(req, res)=>{
     }
 })
 
-//holaaaaa
+
 module.exports= productRoutes

@@ -3,6 +3,8 @@ const {allProducts, findById, findProduct, findByCategory}= require("../controll
 const  createProduct  = require("../controllers/createProduct.js");
 const deleteProduct = require("../controllers/deleteProduct.js");
 const updateProducts = require("../controllers/updateProduct.js");
+const updateProductIsActive = require("../controllers/updateProductIsActive.js")
+
 const productRoutes= Router();
 
 productRoutes.get("/", async(req, res)=>{
@@ -54,16 +56,25 @@ productRoutes.delete("/:id", async(req, res)=>{
     }
 })
 
-productRoutes.put("/:id", async(req, res)=>{
+productRoutes.put("/:id", async (req, res) => {
     try {
-        const {id}= req.params;
-        const data= req.body;
-        await updateProducts(id, data)
-        res.status(201).send({status: "The product was update successfully"})
+      const { id } = req.params;
+      const data = req.body;
+      const { isActive } = data;
+  
+      if (typeof isActive !== 'undefined') {
+        // Cambiar el valor de isActive
+        await updateProductIsActive(id, isActive);
+        res.status(200).send({ status: "The product's isActive was updated successfully" });
+      } else {
+        // Actualizar todos los campos del producto
+        const updatedProduct = await updateProducts(id, data);
+        res.status(200).send({ status: "The product was updated successfully", product: updatedProduct });
+      }
     } catch (error) {
-        res.status(400).send(error.message)
+      res.status(400).send(error.message);
     }
-})
-
+  });
+  
 
 module.exports= productRoutes

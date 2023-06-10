@@ -1,7 +1,15 @@
 const multer = require('multer');
 const createProduct = require('./createProduct');
+const cloudinary = require('cloudinary').v2;
 const { Router } = require('express');
-const uploadProducts= Router();
+const uploadProducts = Router();
+
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: "dfu27fldw",
+  api_key: "992184143386788",
+  api_secret: "Bq9jRJgMWTwBqzxwTVBESzal5Uo"
+});
 
 // Configuración de multer para almacenar los archivos en el directorio "uploads"
 const storage = multer.diskStorage({
@@ -18,22 +26,43 @@ const storage = multer.diskStorage({
 // Middleware de multer para manejar la carga de archivos
 const upload = multer({ storage: storage });
 
-// Ruta para crear un producto
-uploadProducts.post("/", upload.single('image'), async(req, res) => {
+// Función para subir la imagen a Cloudinary y obtener el publicId
+const uploadImage = async (imagePath) => {
+  const options = {
+    use_filename: true,
+    unique_filename: false,
+    overwrite: true,
+  };
+
   try {
-    const { name, category, price, brand, stock } = req.body;
+    const result = await cloudinary.uploader.upload(imagePath, options);
+    console.log(result);
+    return result; // Devolver el objeto completo de la respuesta de Cloudinary
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+uploadProducts.post("/", upload.single('image'), async (req, res) => {
+  try {
     const imagePath = req.file.path; // Obtener la ruta del archivo subido
-console.log(imagePath)
-    const newObject={
-        name: name,
-        category: category,
-        price: price,
-        brand: brand,
-        stock: stock,
-        image: imagePath
+    const result = await uploadImage(imagePath);
+    const { name, category, price, brand, stock } = req.body;
+
+    // Obtener la URL segura desde result.secure_url
+    const imageUrl = result.secure_url;
+    // console.log({"result": result})
+
+    const newObject = {
+      name: name,
+      category: category,
+      price: price,
+      brand: brand,
+      stock: stock,
+      image: imageUrl // Guardar la URL segura en lugar de la ruta local
     }
 
-    const newProduct= await createProduct(newObject);
+    const newProduct = await createProduct(newObject);
 
     res.status(201).send(newProduct);
   } catch (error) {
@@ -41,4 +70,5 @@ console.log(imagePath)
   }
 });
 
-module.exports= uploadProducts;
+
+module.exports = uploadProducts;

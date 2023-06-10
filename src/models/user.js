@@ -9,18 +9,30 @@ const userSchema= new Schema({
         type: String,
         required: true
     },
-    phoneNumber:{
-        type: Number
-    },
-    password:{
-        type: String,
-        required: true
-    },
-    dni:{
-        type: Number
-    } 
+   nickname:{
+    type: String
+   },
+   isAdmin:{
+    type: Boolean,
+    default: false,
+   },
+   isActive: {
+    type: Boolean,
+    default: true
+   },
+   userid:{
+    type: String
+   },
+   adresses: {
+    type: Array,
+    required: false
+   },
+   orders:{
+    type:Array,
+    required: false,
+   }
 });
 
-const User= model("user", userSchema) 
+const User= model("Users", userSchema) 
 
 module.exports= User;

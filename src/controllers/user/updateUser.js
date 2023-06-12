@@ -28,10 +28,7 @@ const updateUser = async(id, data) => {
         if(data.name) user.name = data.name;
         if(data.nickname) user.nickname = data.nickname;
         if(data.email) user.email = data.email;
-        if(data.wallet) user.wallet = data.wallet;
-        if(data.phoneNumber) user.phoneNumber = data.phoneNumber;
-        if(data.addresses) user.addresses = data.addresses;
-        if(data.orders) user.orders = [...user.orders,data.orders];
+        // if(data.orders) user.orders = [...user.orders,data.orders];
         user.updated_at = Date.now()
         await user.save()
 

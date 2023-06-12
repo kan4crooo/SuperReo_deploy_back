@@ -1,11 +1,11 @@
 const {ManagementClient} = require ('auth0')
-const User = require('../../models/user')
+const User = require('../../models/user.js')
 
 
 const auth00 = new ManagementClient({
     domain: 'dev-xqbvwea07u6wndzy.us.auth0.com',
-    clientId: 'Q21TBvyiWPpDMe9QtFP0Q3DKamwC1WLw',
-    clientSecret: 'W1RwyqqWiimLTp94mKCPFn02RJfmcYk_YH1Si5hyfTwU3A0NX6Eg4J3CTkdGHEjd',
+    clientId: 'hJfe8uyZbh8ItdhXmuqgWPIYi4wkUBJW',
+    clientSecret: 'iiCxVF0vx5c1Wf7-0vkkHEqrkZQmqTCrzNy2K5n6GgLEoJpFoQfKsAbQfnHrj5kg',
     scope: 'read:users'
   });
   

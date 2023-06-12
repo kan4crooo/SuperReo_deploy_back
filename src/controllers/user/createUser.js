@@ -2,7 +2,7 @@ const User = require('../../models/user');
 const { getUser } = require('../../controllers/user/getUser.js');
 
 const createUser = async (email) => {
-  const data = await getUser(email.email);
+  const data = await getUser(email);
 
   const userData = {
     name: data[0].given_name + ' ' + data[0].family_name,

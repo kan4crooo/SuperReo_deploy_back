@@ -42,17 +42,22 @@ userRoutes.get("/email/:email", async(req, res)=>{
      try {
          return res.status(200).send(await getUser(email))
      } catch (error) {
-         res.status(404).send({error})
+         res.status(404).send(error.message)
      }
  })
 
- userRoutes.post('/create-user', async (req, res) => {
-    const { email } = req.body;
+ userRoutes.post('/createuser', async (req, res) => {
     try {
+      const { email } = req.body;
+      if (!email) {
+        throw new Error('El campo "email" es requerido.');
+      }
+  
       const user = await createUser(email);
-      res.status(200).json(user);
+      res.status(201).send(user);
     } catch (error) {
-      res.status(500).json( error.message);
+      console.log(error.message);
+      res.status(400).send(error.message);
     }
   });
  userRoutes.put("/:id", async(req, res)=>{

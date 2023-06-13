@@ -117,6 +117,22 @@ userRoutes.get("/email/:email", async(req, res)=>{
     }
  })
 
-
+//  userRoutes.get('/admin', async (req, res) => {
+//     const { admin } = req.body;
+  
+//     try {
+//         await getUserDb(email)
+//       if (admin) {
+//         res.status(200).json({ isAdmin: true });
+//       } else {
+//         // El usuario no es administrador
+//         res.status(200).json({ isAdmin: false });
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       res.status(500).json({ message: 'Internal server error' });
+//     }
+//   });
+  
 
 module.exports= userRoutes;

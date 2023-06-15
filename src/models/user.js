@@ -9,9 +9,6 @@ const userSchema= new Schema({
         type: String,
         required: true
     },
-   nickname:{
-    type: String
-   },
    isAdmin:{
     type: Boolean,
     default: false,
@@ -30,9 +27,15 @@ const userSchema= new Schema({
    orders:{
     type:Array,
     required: false,
+   },
+   verified:{
+    type: Boolean
+   },
+   car:{
+    type:Array
    }
 });
 
-const User= model("users", userSchema) 
+const User= model("users", userSchema)
 
 module.exports= User;

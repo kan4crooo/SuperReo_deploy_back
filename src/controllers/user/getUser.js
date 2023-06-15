@@ -9,7 +9,6 @@ const auth00 = new ManagementClient({
     scope: 'read:users'
   });
   
-  // Get all users
  const getAllUsers = async ()=>{
     try {
       return await auth00.users.getAll();

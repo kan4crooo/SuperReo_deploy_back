@@ -2,7 +2,11 @@ const { Router } = require('express');
 const {getAllUsers, getUser, getDB, getUserDb} = require("../controllers/user/getUser.js")
 const createUser = require("../controllers/user/createUser")
 const {deleteUser, activateUser, updateUser, giveAdmin, removeAdmin, addOrder} = require('../controllers/user/updateUser.js');
+const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+
 const Users = require( "../models/user.js")
+
 
 const userRoutes = Router();
 
@@ -117,6 +121,111 @@ userRoutes.get("/email/:email", async(req, res)=>{
     }
  })
 
+
+ ///////////send email ////////////////////
+
+ userRoutes.post('/send-email', async (req, res) => {
+    try {
+      // Obtén los datos necesarios de la solicitud
+      const secretKey= "5M#ñPqTw$yE!@ñad6"
+      const { userId, email, name } = req.body;
+  
+      // Genera el token de verificación
+      const verificationToken = jwt.sign({ userId }, secretKey);
+      const verificationLink = `http://localhost:3000/verify?token=${verificationToken}`;
+  
+      // Configura el transportador de nodemailer
+      const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true,
+        auth: {
+          user: 'labodegadelreo.122@gmail.com',
+          pass: 'jgfdwgttbsagfqex',
+        },
+      });
+  
+      // Envía el correo electrónico
+      const info = await transporter.sendMail({
+        from: '"¡Bienvenido a Super Reo Y+!" <labodegadelreo.122@gmail.com>',
+        to: email,
+        subject: '¡Bienvenido a Super Reo Y+!',
+        html: `<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Super Reo Y+</title>
+            <style>
+                body {
+                    width: 420px;
+                    margin: 0 auto;
+                    font-family: Arial, sans-serif;
+                    color: #333;
+                }
+        
+                .header {
+                    background-color: #2C2C25;
+                    padding: 16px;
+                    text-align: center;
+                }
+        
+                .header h1 {
+                    color: #FFF;
+                    font-size: 24px;
+                    margin: 0;
+                }
+        
+                .content {
+                    padding: 16px;
+                    background-color: #F2F2F2;
+                }
+        
+                .content p {
+                    margin-bottom: 16px;
+                    line-height: 1.5;
+                }
+        
+                .footer {
+                    text-align: center;
+                    font-size: 12px;
+                    color: #999;
+                    margin-top: 16px;
+                }
+            </style>
+        </head>
+        <body>
+            <div class="header">
+                <h1>Bienvenido a Super Reo Y+</h1>
+            </div>
+            <div class="content">
+                <p>Hola, ${name}.</p>
+                <p>Nos complace recibirte en nuestra página. Esperamos que encuentres todo lo que necesitas y disfrutes de una experiencia excepcional. Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos. ¡Estamos aquí para asistirte!</p>
+                <p>Explora nuestro catálogo de productos, descubre las últimas novedades y aprovecha nuestras increíbles ofertas. Queremos asegurarnos de que obtengas todo lo que necesitas para llevar a cabo tus proyectos de manera exitosa.</p>
+                <p>Gracias por elegir Super Reo Y+. ¡Esperamos que tu visita sea satisfactoria y que regreses pronto!</p>
+            </div>
+            <hr>
+            <div class="footer">
+                <p>Todos los derechos reservados a Super Reo Y+ y sus desarrolladores</p>
+            </div>
+        </body>
+        </html>
+        `,
+      });
+  
+      console.log('Message sent:', info.messageId);
+      console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
+  
+      res.send('Correo enviado');
+    } catch (error) {
+      console.error(error);
+      res.status(500).send('Error al enviar el correo electrónico');
+    }
+  });
+
+
+  
 //  userRoutes.get('/admin', async (req, res) => {
 //     const { admin } = req.body;
   

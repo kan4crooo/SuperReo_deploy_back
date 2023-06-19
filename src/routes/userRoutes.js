@@ -52,13 +52,13 @@ userRoutes.get("/email/:email", async(req, res)=>{
 
  userRoutes.post('/createuser', async (req, res) => {
     try {
-      const { email } = req.body;
-      if (!email) {
+      const user = req.body;
+      if (!user) {
         throw new Error('El campo "email" es requerido.');
       }
   
-      const user = await createUser(email);
-      res.status(201).send(user);
+      const user2 = await createUser(user);
+      res.status(201).send(user2);
     } catch (error) {
       console.log(error.message);
       res.status(400).send(error.message);

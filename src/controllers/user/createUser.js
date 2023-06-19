@@ -1,18 +1,17 @@
 const User = require('../../models/user');
 const { getUser } = require('../../controllers/user/getUser.js');
 
-const createUser = async (email) => {
-  const data = await getUser(email);
+const createUser = async (user) => {
+  // const data = await getUser(user);
 
   const userData = {
-    picture: data[0].picture,
-    name: data[0].given_name,
-    surname: data[0].family_name,
-    nickname: data[0].nickname,
-    email: data[0].email,
-    userid: data[0].identities.user_id,
+    picture: user.picture,
+    name: user.given_name,
+    surname: user.family_name,
+    email: user.email,
+    // userid: user.identities.user_id,
+    verified: user.email_verified
   };
-
   try {
     const user = await User.findOneAndUpdate(
       { email: userData.email },

@@ -26,7 +26,8 @@ const updateUser = async(id, data) => {
         const user = await User.findOne({ _id: id });
         if(!user) throw 'No se ha encontrado un componente con ese ID';
         if(data.name) user.name = data.name;
-        if(data.nickname) user.nickname = data.nickname;
+        if(data.surname) user.surname = data.surname;
+        if(data.isActive) user.isActive = data.isActive;
         if(data.email) user.email = data.email;
         // if(data.orders) user.orders = [...user.orders,data.orders];
         user.updated_at = Date.now()

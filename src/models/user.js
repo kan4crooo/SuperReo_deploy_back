@@ -37,7 +37,7 @@ const userSchema= new Schema({
    verified:{
     type: Boolean
    },
-   car:{
+   cart:{
     type:Array
    }
 });

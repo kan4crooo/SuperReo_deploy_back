@@ -2,7 +2,7 @@ const { Router }= require("express");
 const {allProducts, findById, findProduct, findByCategory}= require("../controllers/getProducts.js");
 const  createProduct  = require("../controllers/createProduct.js");
 const deleteProduct = require("../controllers/deleteProduct.js");
-const updateProducts = require("../controllers/updateProduct.js");
+const { updateProducts } = require("../controllers/updateProduct.js");
 const updateProductIsActive = require("../controllers/updateProductIsActive.js")
 
 const productRoutes= Router();

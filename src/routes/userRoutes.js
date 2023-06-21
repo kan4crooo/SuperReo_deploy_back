@@ -25,7 +25,7 @@ userRoutes.get("/", async (req, res) =>{
  userRoutes.get("/db", async(req, res)=>{
     try {
        
-            return res.status(201).send(await getDB());
+        return res.status(201).send(await getDB());
         
      } catch (error) {
          res.status(404).send(error.message)

@@ -13,6 +13,9 @@ const findProduct= async(name)=>{
 
 const findById= async(id)=>{
     const product= await Products.findOne({_id:id}).catch(e=>{throw`There is not products with this ${id}`});
+    if (product === null) {
+        throw Error(`There is not products with this ${id}`)
+    }
     return product;
 }
 

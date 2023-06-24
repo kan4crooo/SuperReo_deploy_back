@@ -58,19 +58,10 @@ productRoutes.delete("/:id", async(req, res)=>{
 
 productRoutes.put("/:id", async (req, res) => {
     try {
-      const { id } = req.params;
-      const data = req.body;
-      const { isActive } = data;
-  
-      if (typeof isActive !== 'undefined') {
-        // Cambiar el valor de isActive
-        await updateProductIsActive(id, isActive);
-        res.status(200).send({ status: "The product's isActive was updated successfully" });
-      } else {
-        // Actualizar todos los campos del producto
+        const { id } = req.params;
+        const data = req.body;
         const updatedProduct = await updateProducts(id, data);
         res.status(200).send({ status: "The product was updated successfully", product: updatedProduct });
-      }
     } catch (error) {
       res.status(400).send(error.message);
     }

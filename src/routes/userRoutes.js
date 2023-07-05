@@ -4,7 +4,7 @@ const createUser = require("../controllers/user/createUser")
 const {deleteUser, activateUser, updateUser, giveAdmin, removeAdmin, addOrder} = require('../controllers/user/updateUser.js');
 const nodemailer = require('nodemailer');
 const jwt = require('jsonwebtoken');
-
+// const logo= require("../util/logorecortadoooooo (1).png")
 const Users = require( "../models/user.js")
 
 
@@ -146,6 +146,7 @@ userRoutes.get("/email/:email", async(req, res)=>{
       });
   
       // Envía el correo electrónico
+      const logoUrl= `https://res.cloudinary.com/dfu27fldw/image/upload/v1688583817/logorecortadoooooo_1_fyaka2.png`
       const info = await transporter.sendMail({
         from: '"¡Bienvenido a Super Reo Y+!" <labodegadelreo.122@gmail.com>',
         to: email,
@@ -193,11 +194,26 @@ userRoutes.get("/email/:email", async(req, res)=>{
                     color: #999;
                     margin-top: 16px;
                 }
+                .logo-container {
+                    display: flex;
+                    align-items: center;
+                   
+                  }
+                
+                  .logo-container h1 {
+                    color:#009fe3;
+                    margin-right: 10px; /* Espacio entre el título y la imagen */
+                  }
             </style>
         </head>
         <body>
             <div class="header">
-                <h1>Bienvenido a Super Reo Y+</h1>
+                <div class="logo-container">
+                <h1>
+                <img src="${logoUrl}" alt="Logo de Super Reo Y+" style="width: 40px; height: 40px;">
+                Bienvenido a Super Reo Y+
+                </h1>
+                </div>
             </div>
             <div class="content">
                 <p>Hola, ${name}.</p>
@@ -235,25 +251,5 @@ userRoutes.get("/email/:email", async(req, res)=>{
         res.status(404).send({error})
     }
 })
-
-
-  
-//  userRoutes.get('/admin', async (req, res) => {
-//     const { admin } = req.body;
-  
-//     try {
-//         await getUserDb(email)
-//       if (admin) {
-//         res.status(200).json({ isAdmin: true });
-//       } else {
-//         // El usuario no es administrador
-//         res.status(200).json({ isAdmin: false });
-//       }
-//     } catch (error) {
-//       console.error(error);
-//       res.status(500).json({ message: 'Internal server error' });
-//     }
-//   });
-  
 
 module.exports= userRoutes;

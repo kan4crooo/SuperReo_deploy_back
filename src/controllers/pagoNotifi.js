@@ -69,8 +69,10 @@ const send = async(fromMail, toMail, name) => {
                 <p>Agradecemos tu compra y esperamos disfrutes mucho tus productos.</p>
             </div>
             <hr>
-            <div>
-                <p style="text-align: center; font-size: 12px;">Todos los derechos reservados a SuperReoY+ y sus desarrolladores</p>
+            <div class="footer">
+            <p>Recuerde que con cada compra realizada contribuye a apoyar a personas en situación de reclusión. Si tienes un familiar que necesita ayuda mientras se encuentra privado de libertad, nuestro equipo está aquí para brindarte asistencia.
+             Agradecemos tu apoyo y confianza. ¡Tu apoyo marca la diferencia!</p>
+                <p>Todos los derechos reservados a Super Reo Y+ y sus desarrolladores</p>
             </div>
         </body>
         </html>`

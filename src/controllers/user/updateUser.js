@@ -29,7 +29,7 @@ const updateUser = async(id, data) => {
         if(data.surname) user.surname = data.surname;
         if(data.isActive) user.isActive = data.isActive;
         if(data.email) user.email = data.email;
-        // if(data.orders) user.orders = [...user.orders,data.orders];
+        if(data.orders) user.orders = [...user.orders,data.orders];
         user.updated_at = Date.now()
         await user.save()
 

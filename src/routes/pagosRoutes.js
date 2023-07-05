@@ -1,4 +1,4 @@
-
+const send= require("../controllers/pagoNotifi")
 const { Router }= require("express");
 
 const pagosRoutes= Router()
@@ -29,5 +29,16 @@ pagosRoutes.post("/api/orders/:orderID/capture", async (req, res) => {
     res.status(400).send(error.message);
   }
 });
+
+
+pagosRoutes.post("/mailer", async (req, res)=>{
+  try {
+    const { fromMail, toMail, name}= req.body;
+    res.send(await send(fromMail, toMail, name))
+    console.log("correo enviado")
+  } catch (error) {
+    res.send({error: "Pago no autorizado"})
+  }
+})
 
   module.exports= pagosRoutes

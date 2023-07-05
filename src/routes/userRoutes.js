@@ -225,6 +225,18 @@ userRoutes.get("/email/:email", async(req, res)=>{
   });
 
 
+  userRoutes.put("/update/:id", async(req, res)=>{
+    try {
+        const {id} = req.params;
+        const data = req.body;;
+        await updateUser(id, data)
+        res.status(200).send("Actualización exitosa")
+    } catch (error) {
+        res.status(404).send({error})
+    }
+})
+
+
   
 //  userRoutes.get('/admin', async (req, res) => {
 //     const { admin } = req.body;
